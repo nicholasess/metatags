@@ -1,0 +1,30 @@
+{
+  "name": "extract-metatags",
+  "version": "0.0.1",
+  "description": "Extract all metatags about a link",
+  "main": "index.js",
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "request": "^2.55.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicholasess/extract-metatags"
+  },
+  "keywords": [
+    "extract",
+    "metatags",
+    "meta",
+    "tags"
+  ],
+  "author": "Nicholas Eduardo <nicholasess@gmail.com> (http://nicholasess.com.br/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicholasess/extract-metatags/issues"
+  },
+  "homepage": "https://github.com/nicholasess/extract-metatags"
+}
