@@ -1,11 +1,12 @@
 {
   "name": "extract-metatags",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Extract all metatags about a link",
   "main": "index.js",
   "dependencies": {
     "cheerio": "^0.19.0",
-    "request": "^2.55.0"
+    "request": "^2.55.0",
+    "validator": "^3.40.1"
   },
   "devDependencies": {},
   "scripts": {
