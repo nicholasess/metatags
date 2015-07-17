@@ -10,6 +10,10 @@
   <meta name="apple-mobile-web-app-capable" content="no">
   <meta name="description" content="npm is the package manager for javascript">
   <meta name="viewport" content="width=device-width,minimum-scale=1.0,initial-scale=1,user-scalable=yes">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@davidwalshblog" />
+  <meta name="twitter:domain" content="http://davidwalsh.name" />
+  <meta name="twitter:description" content="Facebook implemented Open Graph META tags to allow developers more customization of how their site&#039;s content is represented on the Facebook website when shared.  Adding these META tags, which take all of five minutes, can have an incredible impact when it comes to marketing.  Twitter recently implemented their own META tags for Twitter Cards;  per my post: One of my favorite social APIs was the Open Graph API adopted by Facebook. Adding just a few META tags to each page allowed links to my article to be styled and presented the way I wanted them to, giving me a bit of control over how my content is presented on Facebook. Twitter&#039;s new Twitter Cards API allows for the same idea: add META tags to your pages to allow links to your site to be more informational when tweeted. Implementing Twitter Card META tags on your site takes five minutes, applying for approval from Twitter takes another five minutes, and from that point forward, your content is presented much more professionally. Let&#039;s" />
 
   <link rel="apple-touch-icon" sizes="57x57" href="/static/images/touch-icons/apple-touch-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/static/images/touch-icons/apple-touch-icon-60x60.png">
@@ -42,6 +46,11 @@
   <meta name="msapplication-TileImage" content="/static/images/touch-icons/mstile-144x144.png">
   <meta name="msapplication-config" content="/static/images/touch-icons/browserconfig.xml">
   <meta name="theme-color" content="#cb3837">
+  <meta property="twitter:title" content="Must-Have Social Meta Tags for Twitter, Google+, Facebook and More" />
+  <meta property="twitter:description" content="By including social metadata in all new pieces of content that we publish, we can optimize how that content appears on social networks. Thumbnails, author names, proper descriptions, and other rich information directly correlate with clicks and shares. This post gives you simple templates we use at Moz to include that metadata in your own content." />
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:image:src" content="http://d1avok0lzls2w.cloudfront.net/uploads/twitter_image/5439a16d051be3.14207691.jpg" />
+  <meta property="twitter:creator" content="@cyrusshepard" />
 
   <link rel="canonical" href="https://www.npmjs.com/">
   <link rel="stylesheet" media="all" href="/static/css/index.css">

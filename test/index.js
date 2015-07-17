@@ -41,6 +41,18 @@ describe('Metatags', function() {
         });
     });
 
+    it('should contain twitter tags', function(done) {
+        metatags('https://www.npmjs.com/', function(err, data) {
+            if (err) {
+                done(err);
+            } else {
+                expect(data).to.contain.keys('twitter');
+                done();
+            }
+        });
+    });
+
+
     it('should contain facebook image tags', function(done) {
         metatags('https://www.npmjs.com/', function(err, data) {
             if (err) {
