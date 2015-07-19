@@ -40,14 +40,22 @@ module.exports = function(link, cb) {
         meta = meta.filter(function(m) {
             return meta[m].hasOwnProperty('attribs')
                 && meta[m].attribs !== undefined
-                && meta[m].attribs.property !== undefined
+                // Has either property or name:
+                && (meta[m].attribs.property !== undefined ||
+                    meta[m].attribs.name !== undefined)
                 && meta[m].attribs.content !== undefined;
         });
 
         meta.each(function(m) {
             var _meta = meta[m];
 
-            var property = _meta.attribs.property.split(':');
+            var property;
+
+            if (_meta.attribs.property) {
+                property = _meta.attribs.property.split(':');
+            } else {
+                property = _meta.attribs.name.split(':');
+            }
 
             /*
              * Checking if property name is mapped to a value, if it's not,

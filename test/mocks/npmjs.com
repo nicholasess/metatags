@@ -46,10 +46,6 @@
   <meta name="msapplication-TileImage" content="/static/images/touch-icons/mstile-144x144.png">
   <meta name="msapplication-config" content="/static/images/touch-icons/browserconfig.xml">
   <meta name="theme-color" content="#cb3837">
-  <meta property="twitter:title" content="Must-Have Social Meta Tags for Twitter, Google+, Facebook and More" />
-  <meta property="twitter:description" content="By including social metadata in all new pieces of content that we publish, we can optimize how that content appears on social networks. Thumbnails, author names, proper descriptions, and other rich information directly correlate with clicks and shares. This post gives you simple templates we use at Moz to include that metadata in your own content." />
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:image:src" content="http://d1avok0lzls2w.cloudfront.net/uploads/twitter_image/5439a16d051be3.14207691.jpg" />
   <meta property="twitter:creator" content="@cyrusshepard" />
 
   <link rel="canonical" href="https://www.npmjs.com/">
