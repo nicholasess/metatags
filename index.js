@@ -1,71 +1,79 @@
 var cheerio = require('cheerio');
 var request = require('request');
 var validator = require('validator');
-var stats = { protocols: ['http','https','ftp'], require_protocol: true };
+var stats = {
+    protocols: [
+        'http',
+        'https',
+        'ftp'
+    ],
+    require_protocol: true
+};
 
-module.exports = function(link, cb){
-	if(link){
-		if(validator.isURL(link, stats)){
-			request(link, function(error, response, body) {
-			  if(response !== undefined){
-			  	var $ = cheerio.load(body);
-				var meta = $('meta');
-				var keys = Object.keys(meta);
-				var facebook = {};
-				var twitter = {};
-				var metatags = {};
+var attributeMapping = {
+    'og': 'facebook'
+};
 
-				keys.forEach(function(key){
-				 if(meta[key].attribs !== undefined){
+module.exports = function(link, cb) {
+    if (!link) {
+        cb({ message: 'Url is empty' }, null);
+        return;
+    }
 
-				 	switch(meta[key].attribs.property){
-				 		case 'og:title': {
-				 			facebook.title = meta[key].attribs.content
-				 		}break;
+    if (!validator.isURL(link, stats)) {
+        cb({ message: 'Url is not valid' }, null);
+        return;
+    }
 
-				 		case 'og:description': {
-				 			facebook.description = meta[key].attribs.content
-				 		}break;
+    request(link, function(error, response, body) {
 
-				 		case 'og:image': {
-				 			facebook.image = meta[key].attribs.content
-				 		}break;
-				 	}
+        if (error || response === undefined) {
+            cb({ message: 'Empty response' });
+            return;
+        }
 
-				 	switch(meta[key].attribs.name){
-				 		case 'twitter:creator': {
-				 			twitter.creator = meta[key].attribs.content
-				 		}break;
-				 		case 'twitter:card': {
-				 			twitter.card = meta[key].attribs.content
-				 		}break;
-				 		case 'twitter:url': {
-				 			twitter.url = meta[key].attribs.content
-				 		}break;
-				 		case 'twitter:title': {
-				 			twitter.title = meta[key].attribs.content
-				 		}break;
-				 		case 'twitter:description': {
-				 			twitter.description = meta[key].attribs.content
-				 		}break;
-				 		case 'twitter:image': {
-				 			twitter.image = meta[key].attribs.content
-				 		}break;
-				 	}
-				 }	    
-				});
+        var $ = cheerio.load(body);
+        var meta = $('meta');
+        var metatags = {};
 
-				metatags.facebook = facebook;
-				metatags.twitter = twitter;
+        /* Purge invalid tags on the object */
+        meta = meta.filter(function(m) {
+            return meta[m].hasOwnProperty('attribs')
+                && meta[m].attribs !== undefined
+                // Has either property or name:
+                && (meta[m].attribs.property !== undefined ||
+                    meta[m].attribs.name !== undefined)
+                && meta[m].attribs.content !== undefined;
+        });
 
-				cb(null, metatags);	
-			  }   
-			});
-		}else{
-			cb({message: 'Url is not valid'},null);
-		}
-	}else{
-		cb({message: 'Url is empty'},null);	   
-	}
-}
+        meta.each(function(m) {
+            var _meta = meta[m];
 
+            var property;
+
+            if (_meta.attribs.property) {
+                property = _meta.attribs.property.split(':');
+            } else {
+                property = _meta.attribs.name.split(':');
+            }
+
+            /*
+             * Checking if property name is mapped to a value, if it's not,
+             * use it as it is
+             */
+            var propertyName = attributeMapping[property[0]] ? attributeMapping[property[0]] : property[0];
+            var propertyValue = property[1];
+
+            /*
+             * Checks if the meta tag 'vendor' is present on our metatags hash
+             */
+            if (!metatags.hasOwnProperty(propertyName)) {
+                metatags[propertyName] = {};
+            }
+
+            metatags[propertyName][propertyValue] = _meta.attribs.content;
+        });
+
+        cb(null, metatags);
+    });
+};
