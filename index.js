@@ -14,6 +14,22 @@ var attributeMapping = {
     'og': 'facebook'
 };
 
+function extractDomain(url) {
+    var domain;
+    //find & remove protocol (http, ftp, etc.) and get domain
+    if (url.indexOf("://") > -1) {
+        domain = url.split('/')[2];
+    }
+    else {
+        domain = url.split('/')[0];
+    }
+
+    //find & remove port number
+    domain = domain.split(':')[0];
+
+    return domain;
+}
+
 module.exports = function(link, cb) {
     if (!link) {
         cb({ message: 'Url is empty' }, null);
@@ -34,7 +50,10 @@ module.exports = function(link, cb) {
 
         var $ = cheerio.load(body);
         var meta = $('meta');
+        var title = $('title').text();
+        var images = $('img');
         var metatags = {};
+        var images2 = [];
 
         /* Purge invalid tags on the object */
         meta = meta.filter(function(m) {
@@ -44,6 +63,12 @@ module.exports = function(link, cb) {
                 && (meta[m].attribs.property !== undefined ||
                     meta[m].attribs.name !== undefined)
                 && meta[m].attribs.content !== undefined;
+        });
+
+        images.each(function(m) {
+            images2.push({
+                src: images[m].attribs.src
+            });
         });
 
         meta.each(function(m) {
@@ -67,12 +92,27 @@ module.exports = function(link, cb) {
             /*
              * Checks if the meta tag 'vendor' is present on our metatags hash
              */
+
             if (!metatags.hasOwnProperty(propertyName)) {
                 metatags[propertyName] = {};
             }
 
-            metatags[propertyName][propertyValue] = _meta.attribs.content;
+            if(typeof propertyValue == 'undefined'){
+               metatags[propertyName] = _meta.attribs.content;
+            }else{
+                metatags[propertyName][propertyValue] = _meta.attribs.content;
+            }
         });
+
+        /*
+         *   Include tag title
+        */
+        metatags['title'] = title;
+        /*
+         *   Include images from document
+        */
+
+        metatags['otherimages'] = images2;
 
         cb(null, metatags);
     });
