@@ -1,5 +1,5 @@
 var meta = require('./index');
 
-meta('https://www.npmjs.com/', function(err, data){
+meta('https://99folks.com/', function(err, data){
     console.log(data);
 });

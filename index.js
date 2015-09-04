@@ -66,8 +66,16 @@ module.exports = function(link, cb) {
         });
 
         images.each(function(m) {
+            var src = "";
+
+            if(validator.isURL(images[m].attribs.src, stats)){
+                src = images[m].attribs.src;
+            }else{
+                src = extractDomain(link) +'/'+ images[m].attribs.src;
+            }
+
             images2.push({
-                src: images[m].attribs.src
+                src: src
             });
         });
 
