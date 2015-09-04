@@ -1,6 +1,6 @@
 {
   "name": "metatags",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Extract all metatags about a link",
   "main": "index.js",
   "dependencies": {
